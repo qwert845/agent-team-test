@@ -2,17 +2,26 @@
 
 export const ROUND_SECONDS = 30;
 
+export const COMBO_WINDOW = 1;
+export const COMBO_BONUS_AT = 3;
+
+// combo: quick hits in a row. sinceHit: seconds since the last hit (null before the first).
 export function createGame() {
-  return { score: 0, timeLeft: ROUND_SECONDS, over: false };
+  return { score: 0, timeLeft: ROUND_SECONDS, over: false, combo: 0, sinceHit: null };
 }
 
 export function hit(state) {
   if (state.over) return state;
-  return { ...state, score: state.score + 1 };
+  const quick = state.sinceHit !== null && state.sinceHit <= COMBO_WINDOW;
+  const combo = quick ? state.combo + 1 : 0;
+  const points = combo >= COMBO_BONUS_AT ? 2 : 1;
+  return { ...state, score: state.score + points, combo, sinceHit: 0 };
 }
 
 export function tick(state, seconds) {
   if (state.over) return state;
   const timeLeft = Math.max(0, state.timeLeft - seconds);
-  return { ...state, timeLeft, over: timeLeft === 0 };
+  const sinceHit = state.sinceHit === null ? null : state.sinceHit + seconds;
+  const combo = sinceHit !== null && sinceHit > COMBO_WINDOW ? 0 : state.combo;
+  return { ...state, timeLeft, over: timeLeft === 0, combo, sinceHit };
 }
