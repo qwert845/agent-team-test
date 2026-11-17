@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 test("HUD shows the current score on start, hit, and finish", async () => {
-  const hud = { textContent: "" };
+  const hud = { textContent: "", style: {} };
   const target = {
     style: {},
     addEventListener(event, listener) {
