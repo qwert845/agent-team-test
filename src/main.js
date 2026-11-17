@@ -1,5 +1,6 @@
 // Screen code. Uses only the functions in contracts/rules-api.md.
 import { createGame, hit, tick } from "./rules.js";
+import { isUrgent, URGENT_COLOR } from "./urgent.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
@@ -13,6 +14,7 @@ function moveTarget() {
 
 function draw() {
   hud.textContent = state.over ? "끝" : `남은 시간 ${Math.ceil(state.timeLeft)}초`;
+  hud.style.color = isUrgent(state.timeLeft, state.over) ? URGENT_COLOR : "";
 }
 
 target.addEventListener("click", () => {
