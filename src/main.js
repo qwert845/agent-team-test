@@ -4,6 +4,7 @@ import { createGame, hit, tick } from "./rules.js";
 const field = document.getElementById("field");
 const target = document.getElementById("target");
 const hud = document.getElementById("hud");
+const comboView = document.getElementById("combo");
 let state = createGame();
 
 function moveTarget() {
@@ -12,7 +13,10 @@ function moveTarget() {
 }
 
 function draw() {
-  hud.textContent = state.over ? "끝" : `남은 시간 ${Math.ceil(state.timeLeft)}초 · 연속 ${state.combo}`;
+  hud.textContent = state.over
+    ? `끝 · 점수 ${state.score}`
+    : `점수 ${state.score}  ·  남은 시간 ${Math.ceil(state.timeLeft)}초`;
+  if (comboView) comboView.textContent = `연속 ${state.combo}`;
 }
 
 target.addEventListener("click", () => {
