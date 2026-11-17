@@ -1,4 +1,4 @@
-// Screen code. Uses only the functions in contracts/rules-api.md.
+// Screen code. Game rules come only from the functions in contracts/rules-api.md; display-only helpers live in src/urgent.js.
 import { createGame, hit, tick } from "./rules.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
 
