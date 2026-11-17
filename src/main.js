@@ -12,9 +12,7 @@ function moveTarget() {
 }
 
 function draw() {
-  hud.textContent = state.over
-    ? `끝 (점수 ${state.score})`
-    : `남은 시간 ${Math.ceil(state.timeLeft)}초 · 점수 ${state.score} · 연속 ${state.combo}`;
+  hud.textContent = state.over ? "끝" : `남은 시간 ${Math.ceil(state.timeLeft)}초 · 연속 ${state.combo}`;
 }
 
 target.addEventListener("click", () => {
