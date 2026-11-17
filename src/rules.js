@@ -6,8 +6,9 @@ export const COMBO_WINDOW = 1;
 export const COMBO_BONUS_AT = 3;
 
 // combo: quick hits in a row. sinceHit: seconds since the last hit (null before the first).
-export function createGame() {
-  return { score: 0, timeLeft: ROUND_SECONDS, over: false, combo: 0, sinceHit: null };
+export function createGame(seconds) {
+  const start = typeof seconds === "number" && Number.isFinite(seconds) && seconds > 0 ? seconds : ROUND_SECONDS;
+  return { score: 0, timeLeft: start, over: false, combo: 0, sinceHit: null };
 }
 
 export function hit(state) {

@@ -48,3 +48,14 @@ test("while the combo is 3 or more, a hit gives 2 points", () => {
   // score after first hit is 1; combo 1 -> +1, 2 -> +1, 3 -> +2, 4 -> +2
   assert.deepEqual(scores, [[1, 2], [2, 3], [3, 5], [4, 7]]);
 });
+
+test("createGame(seconds) starts with the given seconds", () => {
+  assert.equal(createGame(10).timeLeft, 10);
+  assert.equal(createGame(45.5).timeLeft, 45.5);
+});
+
+test("createGame falls back to 30 for missing, non-positive or non-number values", () => {
+  for (const bad of [undefined, 0, -5, NaN, Infinity, "10", null]) {
+    assert.equal(createGame(bad).timeLeft, 30);
+  }
+});

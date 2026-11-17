@@ -4,7 +4,7 @@
 
 | 함수 | 받는 것 | 돌려주는 것 |
 |---|---|---|
-| `createGame()` | 없음 | 새 상태 `{ score, timeLeft, over, combo, sinceHit }` (`score` 0, `timeLeft` 30, `over` false, `combo` 0, `sinceHit` null) |
+| `createGame(seconds?)` | 시작 초(선택). 0 이하이거나 숫자가 아니면 30으로 본다 | 새 상태 `{ score, timeLeft, over, combo, sinceHit }` (`score` 0, `timeLeft` 받은 초(안 주면 30), `over` false, `combo` 0, `sinceHit` null) |
 | `hit(state)` | 상태 | 새 상태. 끝나지 않았으면 `score` + 1 (이번 맞히기로 `combo`가 3 이상이 되면 + 2), `combo`·`sinceHit` 갱신 |
 | `tick(state, seconds)` | 상태, 지난 초 | 새 상태. `timeLeft`가 줄고, 0이 되면 `over` true (0 아래로 안 내려감), `sinceHit`이 늘고 1초가 넘으면 `combo` 0 |
 
