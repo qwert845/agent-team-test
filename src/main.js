@@ -1,11 +1,13 @@
-// Screen code. Game rules come only from the functions in contracts/rules-api.md; display-only helpers live in src/urgent.js.
+// Screen code. Game rules come only from the functions in contracts/rules-api.md; display-only helpers live in src/ (urgent.js, restart.js).
 import { createGame, hit, tick } from "./rules.js";
+import { isRestartVisible } from "./restart.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
 const hud = document.getElementById("hud");
 const comboView = document.getElementById("combo");
+const restart = document.getElementById("restart");
 let state = createGame();
 
 function moveTarget() {
@@ -18,6 +20,7 @@ function draw() {
     ? `끝 · 점수 ${state.score}`
     : `점수 ${state.score}  ·  남은 시간 ${Math.ceil(state.timeLeft)}초`;
   if (comboView) comboView.textContent = `연속 ${state.combo}`;
+  restart.hidden = !isRestartVisible(state.over);
   hud.style.color = isUrgent(state.timeLeft, state.over) ? URGENT_COLOR : "";
 }
 
@@ -34,6 +37,14 @@ function frame(now) {
   draw();
   if (!state.over) requestAnimationFrame(frame);
 }
+
+restart.addEventListener("click", () => {
+  state = createGame();
+  last = performance.now();
+  moveTarget();
+  draw();
+  requestAnimationFrame(frame);
+});
 
 moveTarget();
 draw();
