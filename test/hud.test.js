@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 
 test("HUD shows scores and keeps the best finished score across restarts", async () => {
   const hud = { textContent: "", style: {} };
+  const timeBar = { setAttribute() {} };
+  const timeBarFill = { style: {} };
   const best = { textContent: "" };
   const target = {
     style: {},
@@ -17,7 +19,7 @@ test("HUD shows scores and keeps the best finished score across restarts", async
       if (event === "click") this.click = listener;
     },
   };
-  const elements = { hud, best, target, field, restart };
+  const elements = { hud, best, target, field, restart, "time-bar": timeBar, "time-bar-fill": timeBarFill };
   const originalDocument = globalThis.document;
   const originalPerformance = globalThis.performance;
   const originalAnimationFrame = globalThis.requestAnimationFrame;
