@@ -7,13 +7,15 @@
 
 ## 실행하기
 
-저장소 폴더에서 PowerShell을 열고 다음 명령으로 작은 웹 서버를 띄운다.
+저장소 폴더에서 터미널을 열고 다음 명령으로 작은 웹 서버를 띄운다.
 
-```powershell
-& 'C:\CodexTools\Python313\python.exe' -m http.server 8000
+```
+python -m http.server 8000
 ```
 
-브라우저에서 <http://localhost:8000/>을 연다. 서버를 끌 때는 PowerShell에서 `Ctrl+C`를 누른다.
+Windows에서 `python` 명령이 안 되면 `py -m http.server 8000`을 쓴다. Node만 있다면 `npx serve .`로 서버를 띄울 수 있다.
+
+Python 서버를 띄웠다면 브라우저에서 <http://localhost:8000/>을 연다. `npx serve .`를 썼다면 터미널에 표시된 주소를 연다. 서버를 끌 때는 터미널에서 `Ctrl+C`를 누른다.
 
 테스트는 저장소 폴더에서 `npm test`로 돌린다(Windows PowerShell에서는 `npm.cmd test`).
 
