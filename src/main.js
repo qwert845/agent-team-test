@@ -3,6 +3,7 @@ import { createGame, hit, tick } from "./rules.js";
 import { isRestartVisible } from "./restart.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
 import { getTimeBar } from "./time-bar.js";
+import { getTargetColor } from "./hit-flash.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
@@ -29,6 +30,7 @@ function draw() {
   if (comboView) comboView.textContent = `연속 ${state.combo}`;
   restart.hidden = !isRestartVisible(state.over);
   hud.style.color = isUrgent(state.timeLeft, state.over) ? URGENT_COLOR : "";
+  target.style.backgroundColor = getTargetColor(state.sinceHit, state.over);
   const bar = getTimeBar(state.timeLeft, startTime, state.over);
   timeBarFill.style.width = `${bar.ratio * 100}%`;
   timeBarFill.style.backgroundColor = bar.color;
