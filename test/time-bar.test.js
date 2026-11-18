@@ -28,7 +28,7 @@ test("time bar becomes red at 5 seconds and clears to its original color when ov
 test("time bar shrinks during play and refills on restart", async () => {
   const hud = { textContent: "", style: {} };
   const best = { textContent: "" };
-  const combo = { textContent: "" };
+  const combo = { textContent: "", style: {} };
   const field = { clientWidth: 640, clientHeight: 360 };
   const target = { style: {}, addEventListener() {} };
   const restart = {

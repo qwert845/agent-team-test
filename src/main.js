@@ -3,6 +3,7 @@ import { createGame, hit, tick } from "./rules.js";
 import { isRestartVisible } from "./restart.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
 import { getTimeBar } from "./time-bar.js";
+import { getComboColor } from "./combo-color.js";
 import { getTargetColor } from "./hit-flash.js";
 import { formatRemainingTime } from "./time-format.js";
 
@@ -28,7 +29,10 @@ function draw() {
     ? `끝 · 점수 ${state.score}`
     : `점수 ${state.score}  ·  남은 시간 ${formatRemainingTime(state.timeLeft)}`;
   best.textContent = `최고 점수 ${bestScore}`;
-  if (comboView) comboView.textContent = `연속 ${state.combo}`;
+  if (comboView) {
+    comboView.textContent = `연속 ${state.combo}`;
+    comboView.style.color = getComboColor(state.combo, state.over);
+  }
   restart.hidden = !isRestartVisible(state.over);
   hud.style.color = isUrgent(state.timeLeft, state.over) ? URGENT_COLOR : "";
   target.style.backgroundColor = getTargetColor(state.sinceHit, state.over);
