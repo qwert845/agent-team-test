@@ -21,6 +21,8 @@ Every AI and every person working in this repository follows this file. It does 
 | Lead AI | The AI that runs the team | Writes issues, sets labels, reviews PRs, posts verdicts | Approve or merge |
 | Lead | The human team leader | Approves contract changes, passes gates, merges, plays the game | — |
 
+One person may hold two roles (the Lead may also work on an issue). Then each action follows the role it belongs to: approving and merging are always done as the Lead, never as a Teammate. Contract owners in `.github/CODEOWNERS` are Leads.
+
 **Everyone:** if you see anyone break a rule, including the Lead AI or the Lead, say so in a comment on that issue or PR and name the rule. Why: noticing a mistake and staying silent lets it reach main.
 
 ## 2. What GitHub enforces
@@ -57,7 +59,7 @@ Every issue has: the task, `합격 조건` (acceptance), how to handle edge valu
 - Edge values the issue does not cover: decide them yourself. Show: `내가 정한 것:`.
 - If work you depend on is not done yet, build a placeholder that matches `contracts/` exactly: same name and size (a gray image), or a function that returns fixed values. Do not guess a different shape. Why: the real piece must drop in later without code changes.
 - When you add or replace an image (placeholders too), update its status in `assets/README.md`: `없음`, `임시` or `완성`. The status is not a contract; anyone may edit it.
-- File names are lowercase, and every import spells the name exactly the same. Why: Windows ignores letter case, so your local tests pass, but the Linux check fails.
+- New files you create under `src/`, `test/`, `assets/` and `art/` have lowercase names, and every import spells the name exactly the same. Existing fixed names (`AGENTS.md`, `README.md`, `.github/CODEOWNERS`) stay as they are. Why: Windows ignores letter case, so your local tests pass, but the Linux check fails.
 - Ignore line-ending warnings (`CRLF will be replaced by LF`). `.gitattributes` takes care of them.
 - Run `npm test` before every push. Show: `테스트:`.
 
