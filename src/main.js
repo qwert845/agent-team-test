@@ -4,13 +4,14 @@ import { isRestartVisible } from "./restart.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
 import { getTimeBar } from "./time-bar.js";
 import { getComboColor } from "./combo-color.js";
-import { getTargetColor } from "./hit-flash.js";
+import { getTargetColor, FLASH_COLOR } from "./hit-flash.js";
 import { formatRemainingTime } from "./time-format.js";
 import { isNewBestScore } from "./best-score.js";
 import { updateHighestCombo } from "./highest-combo.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
+const targetArt = document.getElementById("target-art");
 const hud = document.getElementById("hud");
 const timeBar = document.getElementById("time-bar");
 const timeBarFill = document.getElementById("time-bar-fill");
@@ -30,7 +31,7 @@ function moveTarget() {
 
 function draw() {
   hud.textContent = state.over
-    ? `끝 · 점수 ${state.score} · 최고 연속 ${highestCombo}${newBestAtFinish ? " · 최고 기록!" : ""}`
+    ? `게임 끝 · 점수 ${state.score} · 최고 연속 ${highestCombo}${newBestAtFinish ? " · 최고 기록!" : ""}`
     : `점수 ${state.score}  ·  남은 시간 ${formatRemainingTime(state.timeLeft)}`;
   best.textContent = `최고 점수 ${bestScore}`;
   if (comboView) {
@@ -39,7 +40,12 @@ function draw() {
   }
   restart.hidden = !isRestartVisible(state.over);
   hud.style.color = isUrgent(state.timeLeft, state.over) ? URGENT_COLOR : "";
-  target.style.backgroundColor = getTargetColor(state.sinceHit, state.over);
+  const targetColor = getTargetColor(state.sinceHit, state.over);
+  // Art loaded: show it (flash = brighter art). Not loaded or failed: gray circle, as before.
+  const artOk = !!targetArt && targetArt.complete && targetArt.naturalWidth > 0;
+  if (targetArt) targetArt.hidden = !artOk;
+  target.style.backgroundColor = artOk ? "transparent" : targetColor;
+  target.style.filter = artOk && targetColor === FLASH_COLOR ? "brightness(1.5)" : "";
   const bar = getTimeBar(state.timeLeft, startTime, state.over);
   timeBarFill.style.width = `${bar.ratio * 100}%`;
   timeBarFill.style.backgroundColor = bar.color;

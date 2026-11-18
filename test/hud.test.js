@@ -34,7 +34,7 @@ test("HUD shows scores and keeps the best finished score across restarts", async
     assert.equal(hud.textContent, "점수 0  ·  남은 시간 0:30");
     assert.equal(best.textContent, "최고 점수 0");
     frame(30_000);
-    assert.equal(hud.textContent, "끝 · 점수 0 · 최고 연속 0");
+    assert.equal(hud.textContent, "게임 끝 · 점수 0 · 최고 연속 0");
     assert.equal(best.textContent, "최고 점수 0");
     restart.click();
     assert.equal(hud.textContent, "점수 0  ·  남은 시간 0:30");
@@ -42,11 +42,11 @@ test("HUD shows scores and keeps the best finished score across restarts", async
     assert.equal(hud.textContent, "점수 1  ·  남은 시간 0:30");
     assert.equal(best.textContent, "최고 점수 0");
     frame(30_000);
-    assert.equal(hud.textContent, "끝 · 점수 1 · 최고 연속 0 · 최고 기록!");
+    assert.equal(hud.textContent, "게임 끝 · 점수 1 · 최고 연속 0 · 최고 기록!");
     assert.equal(best.textContent, "최고 점수 1");
     assert.equal(restart.hidden, false);
     frame(30_000);
-    assert.equal(hud.textContent, "끝 · 점수 1 · 최고 연속 0 · 최고 기록!");
+    assert.equal(hud.textContent, "게임 끝 · 점수 1 · 최고 연속 0 · 최고 기록!");
     restart.click();
     assert.equal(hud.textContent, "점수 0  ·  남은 시간 0:30");
     assert.equal(best.textContent, "최고 점수 1");
@@ -56,19 +56,19 @@ test("HUD shows scores and keeps the best finished score across restarts", async
     target.click();
     assert.equal(best.textContent, "최고 점수 1");
     frame(31_000);
-    assert.equal(hud.textContent, "끝 · 점수 1 · 최고 연속 0");
+    assert.equal(hud.textContent, "게임 끝 · 점수 1 · 최고 연속 0");
     assert.equal(best.textContent, "최고 점수 1");
     restart.click();
     target.click();
     target.click();
     assert.equal(best.textContent, "최고 점수 1");
     frame(30_000);
-    assert.equal(hud.textContent, "끝 · 점수 2 · 최고 연속 1 · 최고 기록!");
+    assert.equal(hud.textContent, "게임 끝 · 점수 2 · 최고 연속 1 · 최고 기록!");
     assert.equal(best.textContent, "최고 점수 2");
     restart.click();
     assert.equal(best.textContent, "최고 점수 2");
     frame(30_000);
-    assert.equal(hud.textContent, "끝 · 점수 0 · 최고 연속 0");
+    assert.equal(hud.textContent, "게임 끝 · 점수 0 · 최고 연속 0");
     assert.equal(best.textContent, "최고 점수 2");
   } finally {
     globalThis.document = originalDocument;
