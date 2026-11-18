@@ -26,7 +26,7 @@ Every AI and every person working in this repository follows this file. It does 
 ## 2. What GitHub enforces
 
 - main cannot be pushed to directly, force-pushed or deleted.
-- A merge needs a PR, a passing check (`test`), and a branch that is up to date with main.
+- Every PR runs the automatic check (`.github/workflows/check.yml`, job `test`). A merge needs a PR, a passing check, and a branch that is up to date with main.
 - Changes to `contracts/`, `AGENTS.md` and `.github/` need the owner's approval (`.github/CODEOWNERS`).
 
 If one of these stops you, stop and say so in a comment on the issue. Do not look for another way in.
