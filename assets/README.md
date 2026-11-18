@@ -1,0 +1,8 @@
+# 그림 상태
+
+규격(이름·크기)은 `contracts/assets.md`에 있다. 이 표는 그림을 넣거나 바꾸는 PR이 같이 고친다(AGENTS.md 2절).
+
+| 파일 | 상태 | 메모 |
+|---|---|---|
+| `assets/target.png` | 임시 | 회색 원 (PR #35). 못 불러오면 화면이 회색 원을 그린다 |
+| `assets/background.png` | 없음 | 화면은 단색 배경 |
