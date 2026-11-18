@@ -4,6 +4,7 @@ import { isRestartVisible } from "./restart.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
 import { getTimeBar } from "./time-bar.js";
 import { getTargetColor } from "./hit-flash.js";
+import { formatRemainingTime } from "./time-format.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
@@ -25,7 +26,7 @@ function moveTarget() {
 function draw() {
   hud.textContent = state.over
     ? `끝 · 점수 ${state.score}`
-    : `점수 ${state.score}  ·  남은 시간 ${Math.ceil(state.timeLeft)}초`;
+    : `점수 ${state.score}  ·  남은 시간 ${formatRemainingTime(state.timeLeft)}`;
   best.textContent = `최고 점수 ${bestScore}`;
   if (comboView) comboView.textContent = `연속 ${state.combo}`;
   restart.hidden = !isRestartVisible(state.over);
