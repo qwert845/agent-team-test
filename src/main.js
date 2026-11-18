@@ -6,6 +6,7 @@ import { getTimeBar } from "./time-bar.js";
 import { getComboColor } from "./combo-color.js";
 import { getTargetColor } from "./hit-flash.js";
 import { formatRemainingTime } from "./time-format.js";
+import { isNewBestScore } from "./best-score.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
@@ -18,6 +19,7 @@ const restart = document.getElementById("restart");
 let state = createGame();
 let startTime = state.timeLeft;
 let bestScore = 0;
+let newBestAtFinish = false;
 
 function moveTarget() {
   target.style.left = `${Math.random() * (field.clientWidth - 64)}px`;
@@ -26,7 +28,7 @@ function moveTarget() {
 
 function draw() {
   hud.textContent = state.over
-    ? `끝 · 점수 ${state.score}`
+    ? `끝 · 점수 ${state.score}${newBestAtFinish ? " · 최고 기록!" : ""}`
     : `점수 ${state.score}  ·  남은 시간 ${formatRemainingTime(state.timeLeft)}`;
   best.textContent = `최고 점수 ${bestScore}`;
   if (comboView) {
@@ -50,8 +52,12 @@ target.addEventListener("click", () => {
 
 let last = performance.now();
 function frame(now) {
+  const wasOver = state.over;
   state = tick(state, (now - last) / 1000);
-  if (state.over && state.score > bestScore) bestScore = state.score;
+  if (state.over && !wasOver) {
+    newBestAtFinish = isNewBestScore(state.score, bestScore);
+    if (newBestAtFinish) bestScore = state.score;
+  }
   last = now;
   draw();
   if (!state.over) requestAnimationFrame(frame);
@@ -59,6 +65,7 @@ function frame(now) {
 
 restart.addEventListener("click", () => {
   state = createGame();
+  newBestAtFinish = false;
   startTime = state.timeLeft;
   last = performance.now();
   moveTarget();
