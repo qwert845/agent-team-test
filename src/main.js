@@ -8,7 +8,7 @@ import { getTargetColor, FLASH_COLOR } from "./hit-flash.js";
 import { formatRemainingTime } from "./time-format.js";
 import { isNewBestScore } from "./best-score.js";
 import { updateHighestCombo } from "./highest-combo.js";
-import { isRestartKey } from "./Restart-Key.js";
+import { isRestartKey } from "./restart-key.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
