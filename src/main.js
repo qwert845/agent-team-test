@@ -7,6 +7,7 @@ import { getComboColor } from "./combo-color.js";
 import { getTargetColor, FLASH_COLOR } from "./hit-flash.js";
 import { formatRemainingTime } from "./time-format.js";
 import { isNewBestScore } from "./best-score.js";
+import { updateHighestCombo } from "./highest-combo.js";
 
 const field = document.getElementById("field");
 const target = document.getElementById("target");
@@ -21,6 +22,7 @@ let state = createGame();
 let startTime = state.timeLeft;
 let bestScore = 0;
 let newBestAtFinish = false;
+let highestCombo = 0;
 
 function moveTarget() {
   target.style.left = `${Math.random() * (field.clientWidth - 64)}px`;
@@ -29,7 +31,7 @@ function moveTarget() {
 
 function draw() {
   hud.textContent = state.over
-    ? `게임 끝 · 점수 ${state.score}${newBestAtFinish ? " · 최고 기록!" : ""}`
+    ? `게임 끝 · 점수 ${state.score} · 최고 연속 ${highestCombo}${newBestAtFinish ? " · 최고 기록!" : ""}`
     : `점수 ${state.score}  ·  남은 시간 ${formatRemainingTime(state.timeLeft)}`;
   best.textContent = `최고 점수 ${bestScore}`;
   if (comboView) {
@@ -52,6 +54,7 @@ function draw() {
 
 target.addEventListener("click", () => {
   state = hit(state);
+  highestCombo = updateHighestCombo(highestCombo, state.combo);
   moveTarget();
   draw();
 });
@@ -71,6 +74,7 @@ function frame(now) {
 
 restart.addEventListener("click", () => {
   state = createGame();
+  highestCombo = 0;
   newBestAtFinish = false;
   startTime = state.timeLeft;
   last = performance.now();
