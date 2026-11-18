@@ -31,21 +31,21 @@ test("HUD shows scores and keeps the best finished score across restarts", async
     globalThis.requestAnimationFrame = (callback) => { frame = callback; };
     await import("../src/main.js");
 
-    assert.equal(hud.textContent, "점수 0  ·  남은 시간 30초");
+    assert.equal(hud.textContent, "점수 0  ·  남은 시간 0:30");
     assert.equal(best.textContent, "최고 점수 0");
     target.click();
-    assert.equal(hud.textContent, "점수 1  ·  남은 시간 30초");
+    assert.equal(hud.textContent, "점수 1  ·  남은 시간 0:30");
     assert.equal(best.textContent, "최고 점수 0");
     frame(30_000);
     assert.equal(hud.textContent, "끝 · 점수 1");
     assert.equal(best.textContent, "최고 점수 1");
     assert.equal(restart.hidden, false);
     restart.click();
-    assert.equal(hud.textContent, "점수 0  ·  남은 시간 30초");
+    assert.equal(hud.textContent, "점수 0  ·  남은 시간 0:30");
     assert.equal(best.textContent, "최고 점수 1");
     assert.equal(restart.hidden, true);
     frame(1_000);
-    assert.equal(hud.textContent, "점수 0  ·  남은 시간 29초");
+    assert.equal(hud.textContent, "점수 0  ·  남은 시간 0:29");
     target.click();
     assert.equal(best.textContent, "최고 점수 1");
     frame(31_000);
