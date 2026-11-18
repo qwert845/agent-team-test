@@ -6,9 +6,11 @@ import { isUrgent, URGENT_COLOR } from "./urgent.js";
 const field = document.getElementById("field");
 const target = document.getElementById("target");
 const hud = document.getElementById("hud");
+const best = document.getElementById("best");
 const comboView = document.getElementById("combo");
 const restart = document.getElementById("restart");
 let state = createGame();
+let bestScore = 0;
 
 function moveTarget() {
   target.style.left = `${Math.random() * (field.clientWidth - 64)}px`;
@@ -19,6 +21,7 @@ function draw() {
   hud.textContent = state.over
     ? `끝 · 점수 ${state.score}`
     : `점수 ${state.score}  ·  남은 시간 ${Math.ceil(state.timeLeft)}초`;
+  best.textContent = `최고 점수 ${bestScore}`;
   if (comboView) comboView.textContent = `연속 ${state.combo}`;
   restart.hidden = !isRestartVisible(state.over);
   hud.style.color = isUrgent(state.timeLeft, state.over) ? URGENT_COLOR : "";
@@ -33,6 +36,7 @@ target.addEventListener("click", () => {
 let last = performance.now();
 function frame(now) {
   state = tick(state, (now - last) / 1000);
+  if (state.over && state.score > bestScore) bestScore = state.score;
   last = now;
   draw();
   if (!state.over) requestAnimationFrame(frame);

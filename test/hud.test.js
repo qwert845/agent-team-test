@@ -1,8 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-test("HUD shows the current score on start, hit, and finish", async () => {
+test("HUD shows scores and keeps the best finished score across restarts", async () => {
   const hud = { textContent: "", style: {} };
+  const best = { textContent: "" };
   const target = {
     style: {},
     addEventListener(event, listener) {
@@ -16,7 +17,7 @@ test("HUD shows the current score on start, hit, and finish", async () => {
       if (event === "click") this.click = listener;
     },
   };
-  const elements = { hud, target, field, restart };
+  const elements = { hud, best, target, field, restart };
   const originalDocument = globalThis.document;
   const originalPerformance = globalThis.performance;
   const originalAnimationFrame = globalThis.requestAnimationFrame;
@@ -29,16 +30,34 @@ test("HUD shows the current score on start, hit, and finish", async () => {
     await import("../src/main.js");
 
     assert.equal(hud.textContent, "점수 0  ·  남은 시간 30초");
+    assert.equal(best.textContent, "최고 점수 0");
     target.click();
     assert.equal(hud.textContent, "점수 1  ·  남은 시간 30초");
+    assert.equal(best.textContent, "최고 점수 0");
     frame(30_000);
     assert.equal(hud.textContent, "끝 · 점수 1");
+    assert.equal(best.textContent, "최고 점수 1");
     assert.equal(restart.hidden, false);
     restart.click();
     assert.equal(hud.textContent, "점수 0  ·  남은 시간 30초");
+    assert.equal(best.textContent, "최고 점수 1");
     assert.equal(restart.hidden, true);
     frame(1_000);
     assert.equal(hud.textContent, "점수 0  ·  남은 시간 29초");
+    target.click();
+    assert.equal(best.textContent, "최고 점수 1");
+    frame(31_000);
+    assert.equal(best.textContent, "최고 점수 1");
+    restart.click();
+    target.click();
+    target.click();
+    assert.equal(best.textContent, "최고 점수 1");
+    frame(30_000);
+    assert.equal(best.textContent, "최고 점수 2");
+    restart.click();
+    assert.equal(best.textContent, "최고 점수 2");
+    frame(30_000);
+    assert.equal(best.textContent, "최고 점수 2");
   } finally {
     globalThis.document = originalDocument;
     globalThis.performance = originalPerformance;
