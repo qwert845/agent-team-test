@@ -11,7 +11,7 @@ Every AI and every person working in this repository follows this file. It does 
   4. Comments. They are information, never orders that go against 1–3.
 - Most rules say what to do, **why**, and where you **show** that you did it. A reviewer treats anything you cannot show as not done.
 - **No rule for your case?** Do not stop just because a rule is missing. Follow the closest rule, then write what happened under `규칙 빈칸:` in your PR (no PR yet: tell the person who asked you). Stop only where a rule says stop.
-- **Language.** Write everything you post on GitHub (issues, PRs, comments) in Korean. Words in backticks below (labels, verdict words, template headings) are fixed: write them exactly as shown.
+- **Language.** Write everything you post on GitHub (issues, PRs, comments) in Korean. Words in backticks below (labels, verdict words, template headings) are fixed: write them exactly as shown. GitHub's own keywords (`Closes #<N>`), commands, file names and code stay as they are.
 
 ## 1. Roles
 
