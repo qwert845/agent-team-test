@@ -4,5 +4,26 @@
 
 - 작업 규칙: [AGENTS.md](AGENTS.md)
 - 영역 사이의 약속: [contracts/](contracts/)
-- 테스트: `npm test`
-- 실행: `index.html`을 아무 정적 서버로 연다(예: `npx serve .`)
+
+## 실행하기
+
+저장소 폴더에서 PowerShell을 열고 다음 명령으로 작은 웹 서버를 띄운다.
+
+```powershell
+& 'C:\CodexTools\Python313\python.exe' -m http.server 8000
+```
+
+브라우저에서 <http://localhost:8000/>을 연다. 서버를 끌 때는 PowerShell에서 `Ctrl+C`를 누른다.
+
+테스트는 저장소 폴더에서 `npm test`로 돌린다(Windows PowerShell에서는 `npm.cmd test`).
+
+## 게임 기능
+
+- 과녁을 누르면 점수가 올라간다.
+- 남은 시간이 `분:초`로 표시된다.
+- 남은 시간 막대가 시간이 지날수록 줄어든다.
+- 남은 시간이 5초 이하이면 시간 표시와 막대가 빨간색으로 바뀐다.
+- 빠르게 연속으로 맞히면 연속 횟수가 표시되고 점수 보너스를 받는다.
+- 끝난 판들 중 최고 점수가 표시된다.
+- 과녁을 맞히면 잠깐 밝아진다.
+- 시간이 끝나면 `다시 하기` 버튼으로 새 판을 시작할 수 있다.
