@@ -1,4 +1,4 @@
-// Screen code. Game rules come only from the functions in contracts/rules-api.md; display-only helpers live in src/ (urgent.js, restart.js).
+// Screen code. Game rules come only from the functions in contracts/rules-api.md; display-only helpers live in other files under src/.
 import { createGame, hit, tick } from "./rules.js";
 import { isRestartVisible } from "./restart.js";
 import { isUrgent, URGENT_COLOR } from "./urgent.js";
@@ -32,7 +32,7 @@ function draw() {
   const bar = getTimeBar(state.timeLeft, startTime, state.over);
   timeBarFill.style.width = `${bar.ratio * 100}%`;
   timeBarFill.style.backgroundColor = bar.color;
-  timeBar.setAttribute("aria-valuenow", String(bar.ratio * 100));
+  timeBar.setAttribute("aria-valuenow", String(Math.round(bar.ratio * 100)));
 }
 
 target.addEventListener("click", () => {

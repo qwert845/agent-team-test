@@ -53,6 +53,9 @@ test("time bar shrinks during play and refills on restart", async () => {
     await import("../src/main.js");
 
     assert.equal(timeBarFill.style.width, "100%");
+    frame(15_000.0000002);
+    assert.equal(values["aria-valuenow"], "50");
+    assert.notEqual(timeBarFill.style.width, "50%");
     frame(22_500);
     assert.equal(timeBarFill.style.width, "25%");
     assert.equal(timeBarFill.style.backgroundColor, TIME_BAR_COLOR);
