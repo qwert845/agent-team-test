@@ -28,7 +28,7 @@ function moveTarget() {
 
 function draw() {
   hud.textContent = state.over
-    ? `끝 · 점수 ${state.score}${newBestAtFinish ? " · 최고 기록!" : ""}`
+    ? `게임 끝 · 점수 ${state.score}${newBestAtFinish ? " · 최고 기록!" : ""}`
     : `점수 ${state.score}  ·  남은 시간 ${formatRemainingTime(state.timeLeft)}`;
   best.textContent = `최고 점수 ${bestScore}`;
   if (comboView) {
